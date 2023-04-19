@@ -96,11 +96,11 @@ public class Main {
         watchlist.add(new Movie("The Godfather", 9.2, "R"));
         watchlist.add(new Movie("The Dark Knight", 9.0, "PG-13"));
         watchlist.add(new Movie("The Last Of Us", 8.9, "TV-MA"));
-        watchlist.add(new Movie("Top Gun: Mavericl", 8.3, "M"));
+        watchlist.add(new Movie("Top Gun: Maverick", 8.3, "M"));
         watchlist.add(new Movie("Joker", 8.4, "R"));
 
         Scanner scanner = new Scanner(System.in);
-	    int choice;
+	    String choice;
         Display_Watchlist displayWatchlist = new Display_Watchlist(watchlist);
         Cinema cinema = new Cinema(watchlist);
         Add_Remove addRemove = new Add_Remove(watchlist);
@@ -108,40 +108,53 @@ public class Main {
         do{
             System.out.println("1. Display Watchlist\n2. Choose Movie\n3. Add Movie\n4. Remove Movie\n5. Exit");
  	      System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            choice = scanner.nextLine();
+            //scanner.nextLine();
             switch (choice) {
-                case 1:
+                case "1":
+                    System.out.println("\nThe watchlist: ");
                     displayWatchlist.display();
                     break;
-                case 2:
-                    System.out.print("Enter movie name: ");
+                case "2":
+                    System.out.print("\nEnter movie name: ");
                     String name = scanner.nextLine();
                     cinema.chooseMovie(name);
                     break;
-                case 3:
-                    System.out.print("Enter movie name: ");
+                case "3":
+                    System.out.print("\nEnter movie name: ");
                     String addName = scanner.nextLine();
-                    System.out.print("Enter IMDB rating: ");
-                    double imdbRating = scanner.nextDouble();
-                    scanner.nextLine();
-                    System.out.print("Enter PG rating: ");
+                    System.out.print("\nEnter IMDB rating: ");
+                    double imdbRating=0.0;
+                    boolean b=true;
+                    while(b){
+                        String iR=scanner.nextLine();
+                        try{
+                            imdbRating = Double.parseDouble(iR);
+                            b=false;
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("\nArgument must be numeric\nTry entering the IMDB rating again: ");
+                        }
+                    }
+                    System.out.print("\nEnter PG rating: ");
                     String pgRating = scanner.nextLine();
                     addRemove.addMovie(new Movie(addName, imdbRating, pgRating));
+                    System.out.println("++ADDED++");
                     break;
-                case 4:
-                    System.out.print("Enter movie name: ");
+                case "4":
+                    System.out.print("\nEnter movie name: ");
                     String removeName = scanner.nextLine();
                     addRemove.removeMovie(removeName);
+                    System.out.println("--REMOVED--");
                     break;
-                case 5:
-                    System.out.println("Exiting...");
+                case "5":
+                    System.out.println("\nExiting...");
                     break;
                 default:
-                    System.out.println("Invalid choice");
+                    System.out.println("\nInvalid choice");
 			  break;
             }
 	   System.out.println();
-        }while(choice!=5);
+        }while(!(choice.equals("5")));
     }
 }
