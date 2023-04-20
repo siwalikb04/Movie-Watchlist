@@ -71,6 +71,7 @@ class Add_Remove {
             System.out.println("Movie already exists");
         } else {
             watchlist.add(movie);
+            System.out.println("++ADDED++");
         }
     }
 
@@ -80,6 +81,7 @@ class Add_Remove {
             if (movie.name.equalsIgnoreCase(name)) {
                 watchlist.remove(movie);
                 found = true;
+                System.out.println("--REMOVED--");
                 break;
             }
         }
@@ -139,13 +141,11 @@ public class Main {
                     System.out.print("\nEnter PG rating: ");
                     String pgRating = scanner.nextLine();
                     addRemove.addMovie(new Movie(addName, imdbRating, pgRating));
-                    System.out.println("++ADDED++");
                     break;
                 case "4":
                     System.out.print("\nEnter movie name: ");
                     String removeName = scanner.nextLine();
                     addRemove.removeMovie(removeName);
-                    System.out.println("--REMOVED--");
                     break;
                 case "5":
                     System.out.println("\nExiting...");
